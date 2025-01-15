@@ -43,7 +43,7 @@ document.getElementById('sampling-form').addEventListener('submit', function (e)
         { range: [150001, 500000], S1: "D", S2: "E", S3: "G", S4: "J", I: "M", II: "P", III: "Q" },
         { range: [500000, inf], S1: "D", S2: "E", S3: "H", S4: "K", I: "N", II: "Q", III: "R" },
     ];
-
+   
     let letterCode = null;
     for (const row of letterCodeTable) {
         if (lotSize >= row.range[0] && lotSize <= row.range[1]) {
@@ -52,16 +52,17 @@ document.getElementById('sampling-form').addEventListener('submit', function (e)
         }
     }
 
+
     if (!letterCode) {
         document.getElementById('sampling-result').innerHTML = 
-            `Aucun code lettre trouvé pour la taille de lot ${lotSize}.`;
+            `No letter code found for the lot size ${lotSize}.`;
         document.getElementById('result').style.display = 'block';
         return;
     }
-    const plan = samplingPlanTable[letterCode][aql];
+    const plan = samplingPlanTable[letterCode] && samplingPlanTable[letterCode][aql];
     if (!plan) {
         document.getElementById('sampling-result').innerHTML = 
-            `Aucun plan d'échantillonnage trouvé pour le code lettre ${letterCode} et le AQL ${aql}.`;
+            `No sampling plan found for letter code ${letterCode} and AQL ${aql}.`;
         document.getElementById('result').style.display = 'block';
         return;
     }
